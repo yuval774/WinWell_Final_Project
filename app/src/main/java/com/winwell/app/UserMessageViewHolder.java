@@ -1,6 +1,5 @@
 package com.winwell.app;
 
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+// Glide — third-party image loader; used to load the profile photo (same as Uri's ContactAdapter)
+import com.bumptech.glide.Glide;
 // CircleImageView (hdodenhof) — shows the user's profile photo as a small circle
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,13 +40,9 @@ public class UserMessageViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
         MessageTime.setText(sdf.format(new Date(message.Timestamp)));
 
-        // Show the camera photo if we have one (same setImageURI approach Uri uses)
+        // Load the profile photo with Glide, exactly like Uri's ContactAdapter loads a contact photo
         if (!TextUtils.isEmpty(photoUri)) {
-            try {
-                Avatar.setImageURI(Uri.parse(photoUri));
-            } catch (Exception e) {
-                Avatar.setImageResource(R.drawable.logo); // fall back to the logo
-            }
+            Glide.with(Avatar).load(photoUri).into(Avatar);
         }
     }
 }
