@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  activity_onboarding.xml - the 5th screen (our HW2 "goal setup" page).
+  Collects two things for the user's profile, then saves them to Firestore:
+    1) a profile photo taken with the device CAMERA (our required phone capability)
+    2) the user's main goal, chosen from options LOADED FROM FIRESTORE (no static data)
+  Wrapped in a ScrollView so it fits on small screens.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="32dp">
+
+        <!-- Back button (signs out and returns to Sign In) -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"/>
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/onboarding_title"
+            android:textColor="@color/navy_blue"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/onboarding_subtitle"
+            android:textColor="@color/text_secondary"
+            android:textSize="15sp"
+            android:gravity="center"/>
+
+        <!-- Profile photo circle — tap to open the camera -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_camera"
+            android:padding="40dp"
+            android:background="@android:color/white"
+            app:civ_border_color="@color/ice_blue"
+            app:civ_border_width="2dp"/>
+
+        <!-- Tap hint / take photo button -->
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:text="@string/onboarding_take_photo"
+            android:textAllCaps="false"
+            android:textColor="@color/navy_blue"
+            android:background="@android:color/transparent"/>
+
+        <!-- Goal question -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/onboarding_goal_question"
+            android:textColor="@color/navy_blue"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Goals are added here at runtime, loaded from the Firestore "goals" collection -->
+        <RadioGroup
+            android:id="@+id/radio_goals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"/>
+
+        <!-- "Loading goals…" text shown while Firestore is fetching -->
+        <TextView
+            android:id="@+id/text_goals_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/loading_goals"
+            android:textColor="@color/text_secondary"/>
+
+        <!-- Finish button -->
+        <Button
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/onboarding_finish"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:background="@drawable/bg_button"
+            app:backgroundTint="@null"/>
+
+    </LinearLayout>
+
+</ScrollView>

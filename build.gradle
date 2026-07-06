@@ -1,0 +1,10 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.android.application) apply false
+
+    // Added Google Services plugin to connect the app to Firebase
+    id 'com.google.gms.google-services' version '4.4.4' apply false
+
+    // Added Firebase Crashlytics plugin to enable automatic crash reporting
+    id 'com.google.firebase.crashlytics' version '3.0.2' apply false
+}

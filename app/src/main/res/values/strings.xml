@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">WinWell</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_tagline">Win at life, on your terms</string>
+    <string name="get_started">Get Started</string>
+
+    <!-- Login screen -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="login">Sign In</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="sign_in_google">Sign in with Google</string>
+    <string name="no_account">Don\'t have an account? Create one</string>
+    <string name="welcome_user">Welcome, %1$s</string>
+
+    <!-- Sign up screen -->
+    <string name="prompt_name">Full Name</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_account_subtitle">Start your wellness journey.</string>
+    <string name="have_account">Already have an account? Sign In</string>
+    <string name="signup_failed">Sign up failed</string>
+
+    <!-- Onboarding screen -->
+    <string name="onboarding_title">Let\'s set you up</string>
+    <string name="onboarding_subtitle">Add a photo and choose your main goal</string>
+    <string name="onboarding_take_photo">Take a profile photo</string>
+    <string name="onboarding_goal_question">What\'s your main goal?</string>
+    <string name="onboarding_finish">Finish Setup</string>
+    <string name="onboarding_no_goal">Please choose a goal to continue</string>
+    <string name="onboarding_saved">You\'re all set!</string>
+    <string name="camera_permission_needed">Camera permission is needed to take a photo</string>
+    <string name="loading_goals">Loading goals…</string>
+
+    <!-- Chat screen -->
+    <string name="suggested_activity">Suggested Activity</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="activity_accepted_status">Added to your day</string>
+    <string name="activity_declined_status">Declined</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send_message">Send Message</string>
+</resources>

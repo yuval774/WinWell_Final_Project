@@ -1,0 +1,82 @@
+plugins {
+    alias(libs.plugins.android.application)
+
+    // Apply Google Services plugin to process the google-services.json file
+    id 'com.google.gms.google-services'
+
+    // Apply Crashlytics plugin to enable crash reporting in the app
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    namespace 'com.winwell.app'
+    compileSdk {
+        version = release(36)
+    }
+
+    defaultConfig {
+        applicationId "com.winwell.app"
+        minSdk 30
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    implementation libs.recyclerview
+    implementation libs.cardview
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // Firebase BoM (Bill of Materials) - manages all Firebase library versions automatically
+    implementation platform('com.google.firebase:firebase-bom:34.13.0')
+
+    // Firebase Analytics - tracks user behavior and app usage events
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Firebase Crashlytics - automatically reports crashes with full details
+    implementation 'com.google.firebase:firebase-crashlytics'
+
+    // Firebase Firestore - cloud database to store and fetch bot responses dynamically
+    implementation 'com.google.firebase:firebase-firestore'
+
+    // Lottie - third party animation library used to show a loading animation
+    // while the app fetches bot responses from Firestore
+    implementation 'com.airbnb.android:lottie:6.3.0'
+
+    // ── Project B additions ───────────────────────────────────────────────────
+    // Firebase Authentication — backs both sign-in methods (Google + email/password).
+    // Version managed by the Firebase BoM above, so no version number needed.
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Google Play Services Auth — provides the GoogleSignInClient API that powers
+    // the required "Login with Google" button (Uri's class 7 pattern).
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+
+    // Glide — third-party image loader. Uri uses this to load the user's Google
+    // profile picture into the CircleImageView, and we reuse it for the camera photo.
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    // CircleImageView (hdodenhof) — third-party library Uri uses to show profile
+    // pictures as a clean circle (login avatar + onboarding profile photo).
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+}

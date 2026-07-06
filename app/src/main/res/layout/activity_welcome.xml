@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  activity_welcome.xml - launcher screen, matching the HW2 "Welcome" wireframe:
+    - full logo near the top (plain ImageView so the "WinWell" wordmark is NOT cropped)
+    - "Welcome." + tagline sit lower on the screen
+    - a centered pill "Get Started" button (not full width)
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_gradient"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp">
+
+    <!-- top spacer -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Full logo (mark + WinWell wordmark). fitCenter keeps it whole, no cropping. -->
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="180dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/app_name"/>
+
+    <!-- larger spacer so the text group sits in the lower part of the screen -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.6"/>
+
+    <!-- "Welcome." headline -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_title"
+        android:textColor="@color/navy_blue"
+        android:textSize="34sp"
+        android:textStyle="bold"/>
+
+    <!-- Tagline -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/welcome_tagline"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"/>
+
+    <!-- Centered pill button (wrap_content width, NOT stretched side to side) -->
+    <Button
+        android:id="@+id/btn_get_started"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="48dp"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        android:background="@drawable/bg_button"
+        android:text="@string/get_started"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@null"/>
+
+</LinearLayout>

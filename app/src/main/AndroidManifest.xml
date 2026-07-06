@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Required for Firebase (Auth, Firestore, Analytics) and Google Sign-In to reach the cloud -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Camera — used on the Onboarding screen to take a profile photo (our phone capability).
+         required="false" so the app still installs on devices without a camera. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.WinWellApp">
+
+        <!-- WelcomeActivity is now the LAUNCHER (first screen).
+             It checks if a user is already signed in and, if so, skips straight into the app. -->
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Sign In screen (Google + email/password) -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+
+        <!-- Create Account screen (email/password registration — bonus method) -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+
+        <!-- Onboarding screen (goal selection + camera profile photo) -->
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
+
+        <!-- Main chat screen -->
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

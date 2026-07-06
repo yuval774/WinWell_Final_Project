@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "784725168580",
+    "project_id": "winwell-51ae4",
+    "storage_bucket": "winwell-51ae4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784725168580:android:9098a141e0977589115491",
+        "android_client_info": {
+          "package_name": "com.winwell.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784725168580-394b69tuqrscmtpv0i5hq8vri841pu18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winwell.app",
+            "certificate_hash": "6d4341a605cff3ab3e34370ff8073b9eae7f6ee1"
+          }
+        },
+        {
+          "client_id": "784725168580-s597g9sqr6a0bptl9bn6di7ticemer7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB13tznSZ9jtiZeYlh_5r5exjXzH0V3bbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784725168580-s597g9sqr6a0bptl9bn6di7ticemer7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

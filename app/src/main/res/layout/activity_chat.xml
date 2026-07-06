@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_chat.xml — Main chat screen layout for WinWell HW3
+    ─────────────────────────────────────────────────────────────
+    What's in this file:
+      1. Header   — app logo, title, and a red "Test Crash" button for Crashlytics
+      2. FrameLayout (middle) — layers the chat RecyclerView AND a Lottie loading
+         animation on top of each other. The animation is shown while the app
+         fetches bot responses from Firebase Firestore; it hides once the data arrives.
+      3. Footer   — EditText input + Send ImageButton
+
+    Third-party library used: Airbnb Lottie (com.airbnb.android:lottie:6.3.0)
+    → The <com.airbnb.lottie.LottieAnimationView> tag requires this library in build.gradle.
+    → The animation JSON file must be placed in res/raw/loading_animation.json
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/bg_gradient">
+
+    <!-- ══════════════════════════════════════════════
+         HEADER — logo + app name + Test Crash button
+         ══════════════════════════════════════════════ -->
+    <RelativeLayout
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
+
+        <!-- Back / Sign-out button — far left -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Sign out" />
+
+        <!-- Logo — sits on the left, just to the right of the back button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/header_logo_container"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toEndOf="@id/btn_back"
+            android:layout_marginStart="4dp"
+            android:layout_centerVertical="true"
+            android:transitionName="logoTransition"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/header_logo_image"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:contentDescription="@null"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- App name — centered in the middle of the header -->
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textColor="@color/navy_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Test Crash button — far right -->
+        <Button
+            android:id="@+id/btn_test_crash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Test Crash"
+            android:textSize="10sp"
+            android:padding="6dp"
+            android:backgroundTint="#FF4444"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         MIDDLE AREA — FrameLayout so chat + loading overlay sit on top
+         of each other. Two children:
+           • RecyclerView  (always present, shows chat messages)
+           • LottieAnimationView  (visible at launch, hidden after Firestore loads)
+         ══════════════════════════════════════════════════════════════════ -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Chat messages list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:clipToPadding="false" />
+
+        <!-- Lottie loading animation (Airbnb 3rd-party library — bonus points).
+             Shown while the app fetches bot responses from Firebase Firestore.
+             Once fetchBotResponsesFromFirestore() succeeds, ChatActivity hides this view.
+             The JSON animation file lives at:  app/src/main/res/raw/loading_animation.json -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_loading"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+    <!-- ══════════════════════════════════════════════
+         FOOTER — message input + send button
+         ══════════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/footer_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:elevation="8dp">
+
+        <EditText
+            android:id="@+id/edit_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/type_message"
+            android:padding="12dp"
+            android:background="@drawable/bg_input"
+            android:maxLines="4"
+            android:layout_marginEnd="12dp" />
+
+        <ImageButton
+            android:id="@+id/btn_send"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_send"
+            android:background="@drawable/bg_button"
+            android:contentDescription="@string/send_message"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            app:tint="@color/white"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+</LinearLayout>
