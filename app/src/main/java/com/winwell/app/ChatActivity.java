@@ -80,6 +80,11 @@ public class ChatActivity extends AppCompatActivity {
     // Bot greeting fallback text — overwritten from Firestore config/chat if present.
     private String botFallback = "I'm here for you! Let me know how you're feeling today.";
 
+    // Accept / decline replies, also loaded from Firestore config (safe defaults below).
+    // "{activity}" is replaced with the chosen activity's title at runtime.
+    private String acceptReply = "Great choice! I've added \"{activity}\" to your day.";
+    private String declineReply = "No worries, I'll find a better moment for that.";
+
     //
 
     @Override
@@ -308,6 +313,10 @@ public class ChatActivity extends AppCompatActivity {
                     String greeting = doc.getString("greeting");
                     String fallback = doc.getString("fallback");
                     if (fallback != null && !fallback.isEmpty()) botFallback = fallback;
+                    String ar = doc.getString("accept_reply");
+                    String dr = doc.getString("decline_reply");
+                    if (ar != null && !ar.isEmpty()) acceptReply = ar;
+                    if (dr != null && !dr.isEmpty()) declineReply = dr;
                     AddBotMessage((greeting != null && !greeting.isEmpty())
                             ? greeting : "Welcome to WinWell! How can I help you today?");
                 })
@@ -348,14 +357,14 @@ public class ChatActivity extends AppCompatActivity {
     private void onActivityAccepted(Message m) {
         logActivityEvent("activity_accepted", m.ActivityTitle);
         FirebaseCrashlytics.getInstance().log("Activity accepted: " + m.ActivityTitle);
-        AddBotMessage("Great choice! I've added \"" + m.ActivityTitle + "\" to your day.");
+        AddBotMessage(acceptReply.replace("{activity}", m.ActivityTitle));
     }
 
     // Called when the user taps Decline on a suggestion card.
     private void onActivityDeclined(Message m) {
         logActivityEvent("activity_declined", m.ActivityTitle);
         FirebaseCrashlytics.getInstance().log("Activity declined: " + m.ActivityTitle);
-        AddBotMessage("No worries — I'll find a better moment for that.");
+        AddBotMessage(declineReply);
     }
 
     // Logs an Analytics event for an activity (accepted/declined) with the activity name.
