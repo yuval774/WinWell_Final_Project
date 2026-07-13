@@ -27,7 +27,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 // Google Sign-In (Google Play Services) — provides the "Login with Google" flow.
-// This is the same approach Uri taught in class 7.
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -160,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Welcome toast with the Google display name (Uri's class-7 touch)
+                        // Welcome toast with the Google display name
                         String name = account.getDisplayName() != null ? account.getDisplayName() : "";
                         Toast.makeText(this, getString(R.string.welcome_user, name), Toast.LENGTH_SHORT).show();
                         logLoginEvent("google");   // Analytics

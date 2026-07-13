@@ -1,6 +1,6 @@
 package com.winwell.app;
 
-// Camera permissions — same ones Uri uses in his contacts app (AddContactActivity)
+// Camera permissions
 import static android.Manifest.permission.ACCESS_MEDIA_LOCATION;
 import static android.Manifest.permission.CAMERA;
 
@@ -48,8 +48,8 @@ import java.util.Map;
 // OnboardingActivity — the 5th screen. A new user sets up their profile here:
 //
 //   1) PROFILE PHOTO via the device CAMERA — the required "phone capability".
-//      This uses EXACTLY the same camera approach Uri taught in his contacts app
-//      (AddContactActivity): we create a MediaStore image URI, launch the camera with
+//      This uses the standard Android camera approach: we create a MediaStore image URI,
+//      launch the camera with
 //      ActivityResultContracts.TakePicture(), show the result with setImageURI(), and
 //      store the image URI string inside Firestore (no paid Firebase Storage).
 //
@@ -59,7 +59,7 @@ import java.util.Map;
 // On "Finish Setup" we write a users/{uid} document to Firestore and open the chat.
 public class OnboardingActivity extends AppCompatActivity {
 
-    //  Camera fields (1:1 with Uri's AddContactActivity)
+    //  Camera fields
     private int REQUEST_PERMISSIONS_CODE = 1;
     private ActivityResultLauncher<Uri> takePictureLauncher;
     private Uri CurrentImage;   // URI of the photo we just took; its string is saved to Firestore
@@ -97,7 +97,7 @@ public class OnboardingActivity extends AppCompatActivity {
         Button btnFinish    = findViewById(R.id.btn_finish);
         ImageButton btnBack = findViewById(R.id.btn_back);
 
-        //  Camera launcher (Uri's pattern)
+        //  Camera launcher
         // TakePicture writes the photo into the URI we created, and returns true on success.
         // We then display that URI in the circle with setImageURI().
         takePictureLauncher = registerForActivityResult(new ActivityResultContracts.TakePicture(), result -> {
@@ -107,8 +107,7 @@ public class OnboardingActivity extends AppCompatActivity {
             }
         });
 
-        // Tapping the circle OR the button opens the camera (checks permissions first,
-        // exactly like Uri's avatar.setOnClickListener in AddContactActivity).
+        // Tapping the circle OR the button opens the camera (checks permissions first).
         View.OnClickListener openCamera = view -> {
             if (checkSelfPermission(CAMERA) != PackageManager.PERMISSION_GRANTED
                     || checkSelfPermission(ACCESS_MEDIA_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -137,7 +136,7 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     // Called after the user answers the permission dialog. If the camera is allowed,
-    // we take the picture. (Uri's app re-taps to capture; here we capture right away.)
+    // we take the picture. (We capture right away once permission is granted.)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -156,7 +155,7 @@ public class OnboardingActivity extends AppCompatActivity {
         }
     }
 
-    // Creates a MediaStore image URI and launches the camera into it (Uri's captureImage).
+    // Creates a MediaStore image URI and launches the camera into it.
     private void captureImage() {
         Uri imageUri = createImageUri();
         if (imageUri != null) {
@@ -165,7 +164,7 @@ public class OnboardingActivity extends AppCompatActivity {
         }
     }
 
-    // Inserts a new image entry into the device gallery and returns its URI (Uri's createImageUri).
+    // Inserts a new image entry into the device gallery and returns its URI.
     private Uri createImageUri() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "WinWell Profile Picture");
@@ -226,7 +225,7 @@ public class OnboardingActivity extends AppCompatActivity {
         }
 
         // Build the user profile document.
-        // photo = the camera image URI as a string (exactly like Uri stores it for contacts).
+        // photo = the camera image URI as a string.
         Map<String, Object> profile = new HashMap<>();
         profile.put("uid", user.getUid());
         profile.put("name", user.getDisplayName() != null ? user.getDisplayName() : "");

@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
 
     //  Bot responses
     // This list starts EMPTY and is filled from Firestore when the app opens.
-    // Uri: this is how the app fetches dynamic data from the cloud instead of using hardcoded strings.
+    // This is how the app fetches dynamic data from the cloud instead of using hardcoded strings.
     private List<String> botAnswers = new ArrayList<>();
 
     // Suggested activities loaded from Firestore
@@ -141,7 +141,7 @@ public class ChatActivity extends AppCompatActivity {
         //  Start the Lottie loading animation
         // The animation is already visible (set in XML), but we play it explicitly here.
         // The send button is disabled until Firestore finishes loading.
-        // Uri: this is the Lottie 3rd-party library in action — it plays a JSON animation.
+        // The Lottie 3rd-party library in action — it plays a JSON animation.
         lottieLoading.setVisibility(View.VISIBLE);
         lottieLoading.playAnimation();
         btnSend.setEnabled(false); // user can't send until bot responses are ready
@@ -168,7 +168,7 @@ public class ChatActivity extends AppCompatActivity {
         //  Test Crash button
         // Pressing this button intentionally crashes the app.
         // Firebase Crashlytics will catch it and report it to the Firebase console.
-        // Uri: this button is here to prove Crashlytics is active and capturing real crashes.
+        // This button is here to prove Crashlytics is active and capturing real crashes.
         btnTestCrash.setOnClickListener(v -> {
             FirebaseCrashlytics.getInstance().log("Test crash triggered by user — Crashlytics is working");
             throw new RuntimeException("Test Crash — Firebase Crashlytics confirmed working!");
@@ -214,7 +214,7 @@ public class ChatActivity extends AppCompatActivity {
 
     // Fetches all bot response documents from the Firestore "bot_responses" collection.
     //
-    // Uri: this is the Firebase Firestore integration.
+    // This is the Firebase Firestore integration.
     //   - The app queries the cloud database at startup.
     //   - Each document has a "text" field containing one bot response.
     //   - When data arrives, the Lottie animation is hidden and the chat becomes active.
@@ -239,7 +239,7 @@ public class ChatActivity extends AppCompatActivity {
                     );
 
                     //  Hide the Lottie animation now that data is ready
-                    // Uri: the loading animation disappears exactly when the cloud data arrives.
+                    // The loading animation disappears exactly when the cloud data arrives.
                     lottieLoading.cancelAnimation();
                     lottieLoading.setVisibility(View.GONE);
 
@@ -276,7 +276,7 @@ public class ChatActivity extends AppCompatActivity {
         editMessage.setText("");
 
         //  Firebase Analytics: log the "message_sent" event
-        // Uri: this proves Analytics is recording user actions inside the app.
+        // This proves Analytics is recording user actions inside the app.
         Bundle analyticsBundle = new Bundle();
         analyticsBundle.putInt("message_length", content.length()); // extra data attached to the event
         mFirebaseAnalytics.logEvent("message_sent", analyticsBundle);

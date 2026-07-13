@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-// Glide — third-party image loader; used to load the profile photo (same as Uri's ContactAdapter)
+// Glide — third-party image loader; used to load the profile photo
 import com.bumptech.glide.Glide;
 // CircleImageView (hdodenhof) — shows the user's profile photo as a small circle
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,7 +40,7 @@ public class UserMessageViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.getDefault());
         MessageTime.setText(sdf.format(new Date(message.Timestamp)));
 
-        // Load the profile photo with Glide, exactly like Uri's ContactAdapter loads a contact photo
+        // Load the profile photo with Glide
         if (!TextUtils.isEmpty(photoUri)) {
             Glide.with(Avatar).load(photoUri).into(Avatar);
         }
